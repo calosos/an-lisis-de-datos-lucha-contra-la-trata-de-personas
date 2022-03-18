@@ -1,5 +1,6 @@
 library(dplyr)
 library(stringr)
+library(tidyr)
 
 install.packages("tidyr")
 install.packages("stringr")
@@ -93,7 +94,21 @@ View(date_fecha)
 
 ##########################################
 
+setwd("E:/Coder_house/ProyectoArgenitna")
+coordenadas_argentina <- data.frame(read.csv("coordenadas_argentina.csv", F))
+coordenadas_argentina <- separate(coordenadas_argentina,coordenadas_argentina$V2,
+                                  c("coordenada_uno","coordenada_dos"), sep=", ")
+coordenadas_argentina <- coordenadas_argentina %>% separate(V2,c("coordendad-uno"
+                                                                 ,"coordenada_dos"),
+                                                            sep=", ")
+names(coordenadas_argentina)[1]="Provincia"
+names(coordenadas_argentina)[2]="Latitud"
+names(coordenadas_argentina)[3]="Longitud"
+str(coordenadas_argentina)
 
+coordenadas_argentina[2] <- as.numeric(coordenadas_argentina$Latitud)
+coordenadas_argentina[3] <- as.numeric(coordenadas_argentina$Longitud)
+coordenadas_argentina
 
-
-  
+write.csv(coordenadas_argentina, "provincias_ar.csv",row.names = F )
+wri
